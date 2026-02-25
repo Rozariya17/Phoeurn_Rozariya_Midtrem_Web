@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <div class="bg-white p-6 rounded shadow w-full max-w-md mx-auto">
+        <h1 class="text-xl font-semibold mb-4">Login in Page</h1>
+        <form id="login-form">
+            <div class="mb-4">
+                <label for="login" class="block text-sm font-medium mb-1">ID Practitioner</label>
+                <input type="text" id="login" name="login" placeholder="Enter your ID Practitioner" class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-200">
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium mb-1">Password</label>
+                <input type="password" name="password" id="password" minlength="8" required placeholder="Enter your password" class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                <div id="feedback" class="font-medium mt-1"></div>
+            </div>
+
+            <div>
+                <input type="submit" value="Sign in" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const input = document.getElementById('password');
+        const feedback = document.getElementById('feedback');
+
+        function checkPassword(pw){
+            let score = 0;
+            if (pw.length >= 8) score++;
+            if (/\d/.test(pw)) score++;
+            if (/[^A-Za-z0-9]/.test(pw)) score++;
+            return score;
+        }
+
+        input.addEventListener('input', () => {
+            const pw = input.value;
+            const score = checkPassword(pw);
+
+            if (pw.length === 0) {
+                feedback.textContent = '';
+                input.className = 'w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-200';
+                return;
+            }
+
+            if (score <= 1) {
+                feedback.textContent = 'Weak';
+                feedback.className = 'font-medium text-red-600 mt-1';
+                input.className = 'w-full border border-red-400 rounded p-2 focus:outline-none focus:ring-2 focus:ring-red-200';
+            } else if (score === 2) {
+                feedback.textContent = 'Medium';
+                feedback.className = 'font-medium text-orange-500 mt-1';
+                input.className = 'w-full border border-orange-400 rounded p-2 focus:outline-none focus:ring-2 focus:ring-orange-200';
+            } else {
+                feedback.textContent = 'Strong';
+                feedback.className = 'font-medium text-green-600 mt-1';
+                input.className = 'w-full border border-green-400 rounded p-2 focus:outline-none focus:ring-2 focus:ring-green-200';
+            }
+        });
+    </script>
+</body>
+</html>

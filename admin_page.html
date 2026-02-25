@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <header class="bg-purple-600 text-white shadow">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-semibold">Admin Dashboard</h1>
+      <button id="logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-sm font-medium">Logout</button>
+    </div>
+  </header>
+  
+    <h1>This is admin page</h1>
+    
+  <footer class="text-center text-sm text-gray-500 py-6">
+    Thank you for using the Admin Dashboard.
+  </footer>
+
+  <script>
+    function getCookie(name) {
+      return document.cookie.split('; ').find(r => r.startsWith(name + '='))?.split('=')[1];
+    }
+
+    if (getCookie('active_role') !== 'Admin') {
+      window.location.replace('error.html');
+    }
+
+    document.getElementById('logout').addEventListener('click', () => {
+      document.cookie = 'active_role=; max-age=0; path=/';
+      window.location.replace('landing_page.html');
+    });
+  </script>
+</body>
+</html>
